@@ -1,25 +1,38 @@
 import { Module } from '@nestjs/common';
-import { SchoolsController } from './schools/schools.controller';
-import { StudentsController } from './students/students.controller';
-import { SchoolSpecialtiesController } from './school-specialties/school-specialties.controller';
-import { SchoolSpecialtiesByStudentController } from './school-specialties-by-student/school-specialties-by-student.controller';
-import { SchoolSpecialtiesByStudentService } from './school-specialties-by-student/school-specialties-by-student.service';
-import { SchoolsService } from './schools/schools.service';
-import { StudentsService } from './students/students.service';
-import { SchoolSpecialtiesService } from './school-specialties/school-specialties.service';
+import { SchoolsController } from './school/school.controller';
+import { StudentsController } from './student/student.controller';
+import { SchoolSpecialtyController } from './school-specialty/school-specialty.controller';
+import { SchoolSpecialtyByStudentController } from './school-specialty-by-student/school-specialty-by-student.controller';
+import { SchoolSpecialtyByStudentService } from './school-specialty-by-student/school-specialty-by-student.service';
+import { SchoolService } from './school/school.service';
+import { StudentService } from './student/student.service';
+import { SchoolSpecialtyService } from './school-specialty/school-specialty.service';
+import { School } from './school/school.entity';
+import { SchoolSpecialty } from './school-specialty/school-specialty.entity';
+import { SchoolSpecialtyByStudent } from './school-specialty-by-student/school-specialty-by-student.entity';
+import { Student } from './student/student.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
+  imports: [
+    TypeOrmModule.forFeature([
+      School,
+      SchoolSpecialty,
+      SchoolSpecialtyByStudent,
+      Student,
+    ]),
+  ],
   controllers: [
     SchoolsController,
     StudentsController,
-    SchoolSpecialtiesController,
-    SchoolSpecialtiesByStudentController,
+    SchoolSpecialtyController,
+    SchoolSpecialtyByStudentController,
   ],
   providers: [
-    SchoolsService,
-    StudentsService,
-    SchoolSpecialtiesService,
-    SchoolSpecialtiesByStudentService,
+    SchoolService,
+    StudentService,
+    SchoolSpecialtyService,
+    SchoolSpecialtyByStudentService,
   ],
 })
 export class ApiModule {}
